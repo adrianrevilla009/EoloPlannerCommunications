@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "d5aebe94-67e6-4bb0-8ccb-8b1ebec187ea",
+		"name": "EoloPlanner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24851696"
+	},
+	"item": [
+		{
+			"name": "Server GraphQL",
+			"item": [
+				{
+					"name": "Get EoloPlants",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n\teoloPlants {\n\t\tid\n\t\tcity\n\t\tplanning\n\t}\n}\n",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create EoloPlant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation($eoloPlant: EoloPlantInput) {\n\tcreateEoloPlant(eoloPlant: $eoloPlant) {\n\t\tid\n\t\tcity\n\t\tplanning\n\t}\n}\n",
+								"variables": "{\n\t\"eoloPlant\": {\n\t\t\"city\": \"Madrid\"\n\t}\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete EoloPlant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation($id: ID!) {\n\tdeleteEoloPlant(id: $id) {\n\t\tid\n\t\tcity\n\t\tplanning\n\t}\n}",
+								"variables": "{\n\t\"id\": 1\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TopoService REST",
+			"item": [
+				{
+					"name": "Get Topographic Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/topographicdetails/madrid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"topographicdetails",
+								"madrid"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
