@@ -1,4 +1,4 @@
-package es.codeurjc.eoloplanner.server.model;
+package es.codeurjc.eoloplanner.planner.model;
 
 import java.io.Serializable;
 

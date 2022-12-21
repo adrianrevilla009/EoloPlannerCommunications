@@ -1,4 +1,4 @@
-package es.codeurjc.eoloplanner.server.client;
+package es.codeurjc.eoloplanner.planner.client;
 
 import es.codeurjc.mastercloudapps.planner.grpc.GetWeatherRequest;
 import es.codeurjc.mastercloudapps.planner.grpc.Weather;
@@ -9,8 +9,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
-
-import static es.codeurjc.mastercloudapps.planner.grpc.WeatherServiceGrpc.WeatherServiceBlockingStub;
 
 @Service
 public class WeatherClient {

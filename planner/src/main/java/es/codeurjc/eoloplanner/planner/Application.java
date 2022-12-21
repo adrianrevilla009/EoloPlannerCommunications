@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.codeurjc.eoloplanner.server;
+package es.codeurjc.eoloplanner.planner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

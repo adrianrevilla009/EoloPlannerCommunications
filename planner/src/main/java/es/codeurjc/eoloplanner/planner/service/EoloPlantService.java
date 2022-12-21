@@ -1,9 +1,7 @@
-package es.codeurjc.eoloplanner.server.service;
+package es.codeurjc.eoloplanner.planner.service;
 
-import es.codeurjc.eoloplanner.server.client.TopoClient;
-import es.codeurjc.eoloplanner.server.client.WeatherClient;
-import es.codeurjc.eoloplanner.server.model.EoloPlant;
-import es.codeurjc.eoloplanner.server.repository.EoloPlantRepository;
+import es.codeurjc.eoloplanner.planner.model.EoloPlant;
+import es.codeurjc.eoloplanner.planner.repository.EoloPlantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

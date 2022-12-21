@@ -1,7 +1,7 @@
-package es.codeurjc.eoloplanner.server.controller;
+package es.codeurjc.eoloplanner.planner.controller;
 
-import es.codeurjc.eoloplanner.server.service.EoloPlantService;
-import es.codeurjc.eoloplanner.server.model.EoloPlant;
+import es.codeurjc.eoloplanner.planner.service.EoloPlantService;
+import es.codeurjc.eoloplanner.planner.model.EoloPlant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;

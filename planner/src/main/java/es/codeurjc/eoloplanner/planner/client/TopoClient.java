@@ -1,6 +1,6 @@
-package es.codeurjc.eoloplanner.server.client;
+package es.codeurjc.eoloplanner.planner.client;
 
-import es.codeurjc.eoloplanner.server.model.LandscapeResponse;
+import es.codeurjc.eoloplanner.planner.model.LandscapeResponse;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

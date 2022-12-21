@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>es.codeurjc.eoloplanner</groupId>
-    <artifactId>server</artifactId>
+    <artifactId>planner</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>server</name>
-    <description>server</description>
+    <name>planner</name>
+    <description>planner</description>
     <properties>
         <java.version>17</java.version>
         <io.grpc.version>1.42.1</io.grpc.version>
