@@ -45,7 +45,8 @@ async function createPlant() {
   const query = `mutation($eoloPlant: EoloPlantInput) {
     createEoloPlant(eoloPlant: $eoloPlant) {
       id
-      city
+      city,
+      planning
     }
   }`;
 

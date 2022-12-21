@@ -20,7 +20,8 @@ public class EoloPlantController {
 
 	@QueryMapping
 	public Collection<EoloPlant> eoloPlants() {
-		return eoloPlants.findAll();
+		Collection<EoloPlant> a = eoloPlants.findAll();
+		return a;
 	}
 
 	@QueryMapping
