@@ -3,14 +3,10 @@ package es.codeurjc.eoloplanner.planner.controller;
 import es.codeurjc.eoloplanner.planner.service.EoloPlantService;
 import es.codeurjc.eoloplanner.planner.model.EoloPlant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @Controller
 public class EoloPlantController {
@@ -18,23 +14,8 @@ public class EoloPlantController {
 	@Autowired
 	private EoloPlantService eoloPlants;
 
-	@QueryMapping
-	public Collection<EoloPlant> eoloPlants() {
-		return eoloPlants.findAll();
-	}
-
-	@QueryMapping
-	public Optional<EoloPlant> eoloPlant(@Argument long id) {
-		return eoloPlants.findById(id);
-	}
-
-	@MutationMapping
-	public EoloPlant createEoloPlant(@Argument EoloPlant eoloPlant) throws ExecutionException, InterruptedException {
-		return eoloPlants.createEoloplant(eoloPlant);
-	}
-
-	@MutationMapping
-	public EoloPlant deleteEoloPlant(@Argument long id) {
-		return eoloPlants.deleteById(id);
+	@StreamListener(Sink.INPUT)
+	public void handle(EoloPlant eoloPlant) {
+		System.out.println("Event received: " + eoloPlant);
 	}
 }
