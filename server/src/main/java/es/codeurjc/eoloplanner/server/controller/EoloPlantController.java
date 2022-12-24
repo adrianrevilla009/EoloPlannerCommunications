@@ -2,8 +2,13 @@ package es.codeurjc.eoloplanner.server.controller;
 
 
 import es.codeurjc.eoloplanner.server.model.EoloPlant;
+import es.codeurjc.eoloplanner.server.model.EoloPlantResponse;
 import es.codeurjc.eoloplanner.server.service.EoloPlantService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -18,6 +23,8 @@ public class EoloPlantController {
 
 	@Autowired
 	private EoloPlantService eoloPlants;
+
+	Logger logger = LoggerFactory.getLogger(EoloPlantController.class);
 
 	@QueryMapping
 	public Collection<EoloPlant> eoloPlants() {
@@ -37,5 +44,11 @@ public class EoloPlantController {
 	@MutationMapping
 	public EoloPlant deleteEoloPlant(@Argument long id) {
 		return eoloPlants.deleteById(id);
+	}
+
+	@StreamListener(Sink.INPUT)
+	public void handle(EoloPlantResponse eoloPlantResponse) throws ExecutionException, InterruptedException {
+		this.logger.info("Receiving " + eoloPlantResponse.getProgress() + "% progress event");
+		
 	}
 }

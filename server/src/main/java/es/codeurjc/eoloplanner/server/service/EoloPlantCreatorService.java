@@ -15,20 +15,6 @@ public class EoloPlantCreatorService {
 
         StringBuffer planningCreation = new StringBuffer(city);
 
-        /*CompletableFuture<Void> landscape = topoClient.getLandscape(city).thenAccept(l -> {
-            System.out.println("L");
-            planningCreation.append("-");
-            planningCreation.append(l);
-        });
-
-        CompletableFuture<Void> weather = weatherClient.getWeather(city).thenAccept(w -> {
-            System.out.println("W");
-            planningCreation.append("-");
-            planningCreation.append(w);
-        });;
-
-        CompletableFuture.allOf(weather, landscape).get();*/
-
         String planning = planningCreation.toString();
 
         planning = planning.matches("^[A-Ma-m].*") ?

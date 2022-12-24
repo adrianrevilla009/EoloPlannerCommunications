@@ -50,7 +50,7 @@ public class EoloPlantService {
 
         EoloPlant savedEoloPlant = eoloPlants.save(eoloPlant);
 
-        this.sendEoloplantCreationRequests(savedEoloPlant);
+        this.sendEoloplantCreationRequest(savedEoloPlant);
 
         return eoloPlant;
     }
@@ -64,7 +64,7 @@ public class EoloPlantService {
         return eoloPlant;
     }
 
-    public void sendEoloplantCreationRequests(EoloPlant savedEoloPlant) {
+    public void sendEoloplantCreationRequest(EoloPlant savedEoloPlant) {
         this.logger.info("Sending create event");
         source.output().send(new GenericMessage<>(savedEoloPlant));
     }
