@@ -7,7 +7,6 @@ import java.util.Map;
 import es.codeurjc.eoloplanner.server.model.EoloPlantResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -25,17 +24,16 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message)
 			throws InterruptedException, IOException {
 
-		logger.info("Message received:" + message.getPayload());
-		// test response data
-		EoloPlantResponse eoloPlantResponse = new EoloPlantResponse
-				(1L, "Madrid", null, 50, false);
+		logger.info("Sending message via web socket: " + message.getPayload());
 		
-		session.sendMessage(new TextMessage(eoloPlantResponse.toJson()));
+		session.sendMessage(new TextMessage(message.getPayload()));
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		logger.info("User disconnected "+session.getId());
+
+		webSocketSessionMap.remove(session.getId());
 	}
 
 	@Override
@@ -43,8 +41,11 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 		logger.info("User connected "+session.getId());
 
 		webSocketSessionMap.put(session.getId(), session);
-		
-		session.sendMessage(new TextMessage("Hello user"));
+
+		session.sendMessage(new TextMessage("Hi"));
 	}
 
+	public Map<String, WebSocketSession> getWebSocketSessionMap() {
+		return webSocketSessionMap;
+	}
 }

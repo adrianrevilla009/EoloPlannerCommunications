@@ -6,7 +6,8 @@ public class EoloPlant {
 	private String city;
 	private String planning;
 
-	public EoloPlant(String city, String planning) {
+	public EoloPlant(Long id, String city, String planning) {
+		this.id = id;
 		this.city = city;
 		this.planning = planning;
 	}

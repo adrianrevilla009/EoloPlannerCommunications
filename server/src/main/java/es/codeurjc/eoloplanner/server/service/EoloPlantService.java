@@ -1,6 +1,7 @@
 package es.codeurjc.eoloplanner.server.service;
 
 import es.codeurjc.eoloplanner.server.model.EoloPlant;
+import es.codeurjc.eoloplanner.server.model.EoloPlantResponse;
 import es.codeurjc.eoloplanner.server.repository.EoloPlantRepository;
 import es.codeurjc.eoloplanner.server.ws.WebSocketHandler;
 import org.slf4j.Logger;
@@ -25,15 +26,19 @@ public class EoloPlantService {
 
     private EoloPlantCreatorService eoloPlantCreator;
 
+    private EoloPlantResponseService eoloPlantResponseService;
+
     private final Source source;
 
     Logger logger = LoggerFactory.getLogger(EoloPlantService.class);
 
     public EoloPlantService(Source source, EoloPlantRepository eoloPlantRepository,
-                            EoloPlantCreatorService eoloPlantCreator) {
+                            EoloPlantCreatorService eoloPlantCreator,
+                            EoloPlantResponseService eoloPlantResponseService) {
         this.source = source;
         this.eoloPlants = eoloPlantRepository;
         this.eoloPlantCreator = eoloPlantCreator;
+        this.eoloPlantResponseService = eoloPlantResponseService;
     }
 
     public Collection<EoloPlant> findAll() {
@@ -49,6 +54,7 @@ public class EoloPlantService {
         EoloPlant eoloPlant = eoloPlantCreator.createEoloPlant(eoloPlantCreationRequest);
 
         EoloPlant savedEoloPlant = eoloPlants.save(eoloPlant);
+        this.eoloPlantResponseService.save(new EoloPlantResponse(eoloPlant.getId(), eoloPlant.getCity(), eoloPlant.getPlanning(), 0, false));
 
         this.sendEoloplantCreationRequest(savedEoloPlant);
 

@@ -6,7 +6,6 @@ import es.codeurjc.eoloplanner.planner.model.EoloPlant;
 import es.codeurjc.eoloplanner.planner.model.EoloPlantResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.support.GenericMessage;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @Configuration
@@ -42,18 +42,23 @@ public class EoloPlantCreatorService {
 
         StringBuffer planningCreation = new StringBuffer(city);
 
+        AtomicReference<Boolean> firstServiceReached = new AtomicReference<>(false);
+
         CompletableFuture<Void> weather = weatherClient.getWeather(city).thenAccept(w -> {
             System.out.println("W");
             planningCreation.append("-");
             planningCreation.append(w);
-            this.sendEoloplantCreationProgressNotification(eoloPlantCreationRequest, 50, false);
+            this.setProgressDependingOnFirstCompletedPromise(eoloPlantCreationRequest, firstServiceReached.get());
+            firstServiceReached.set(true);
         });
+
 
         CompletableFuture<Void> landscape = topoClient.getLandscape(city).thenAccept(l -> {
             System.out.println("L");
             planningCreation.append("-");
             planningCreation.append(l);
-            this.sendEoloplantCreationProgressNotification(eoloPlantCreationRequest, 75, false);
+            this.setProgressDependingOnFirstCompletedPromise(eoloPlantCreationRequest, firstServiceReached.get());
+            firstServiceReached.set(true);
         });
 
         CompletableFuture.allOf(weather, landscape).get();
@@ -64,7 +69,7 @@ public class EoloPlantCreatorService {
                 planning.toLowerCase() :
                 planning.toUpperCase();
 
-        EoloPlant createdEoloPlant = new EoloPlant(eoloPlantCreationRequest.getCity(), planning);
+        EoloPlant createdEoloPlant = new EoloPlant(eoloPlantCreationRequest.getId(), eoloPlantCreationRequest.getCity(), planning);
 
         this.sendEoloplantCreationProgressNotification(createdEoloPlant, 100, true);
 
@@ -77,6 +82,14 @@ public class EoloPlantCreatorService {
         try {
             Thread.sleep(1000 + new Random().nextInt(2000));
         } catch (InterruptedException e) {}
+    }
+
+    public void setProgressDependingOnFirstCompletedPromise(EoloPlant eoloPlantCreationRequest, Boolean firstServiceReached) {
+        if (!firstServiceReached) {
+            this.sendEoloplantCreationProgressNotification(eoloPlantCreationRequest, 50, false);
+        } else {
+            this.sendEoloplantCreationProgressNotification(eoloPlantCreationRequest, 75, false);
+        }
     }
 
     public void sendEoloplantCreationProgressNotification(EoloPlant eoloPlant, Integer progress, Boolean completed) {
