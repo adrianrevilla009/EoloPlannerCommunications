@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/eoloPlannerCommunications.iml" filepath="$PROJECT_DIR$/.idea/eoloPlannerCommunications.iml" />
       <module fileurl="file://$PROJECT_DIR$/planner/planner.iml" filepath="$PROJECT_DIR$/planner/planner.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-quarkus/server-quarkus.iml" filepath="$PROJECT_DIR$/server-quarkus/server-quarkus.iml" />
       <module fileurl="file://$PROJECT_DIR$/toposervice/toposervice.iml" filepath="$PROJECT_DIR$/toposervice/toposervice.iml" />
       <module fileurl="file://$PROJECT_DIR$/weatherservice/weatherservice.iml" filepath="$PROJECT_DIR$/weatherservice/weatherservice.iml" />
     </modules>
