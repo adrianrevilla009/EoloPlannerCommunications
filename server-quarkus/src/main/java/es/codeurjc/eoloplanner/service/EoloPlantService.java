@@ -3,6 +3,10 @@ package es.codeurjc.eoloplanner.service;
 import es.codeurjc.eoloplanner.model.EoloPlant;
 import es.codeurjc.eoloplanner.model.EoloPlantResponse;
 import es.codeurjc.eoloplanner.repository.EoloPlantRepository;
+import es.codeurjc.eoloplanner.resource.EoloPlantResource;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -10,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 public class EoloPlantService {
@@ -21,6 +26,11 @@ public class EoloPlantService {
 
     @Inject
     private EoloPlantResponseService eoloPlantResponseService;
+
+    @Channel("eoloplantCreationRequests")
+    Emitter<EoloPlant> emitter;
+
+    Logger LOG = Logger.getLogger(String.valueOf(EoloPlantService.class));
 
     public Collection<EoloPlant> findAll() {
         return this.eoloPlantRepository.listAll();
@@ -39,7 +49,7 @@ public class EoloPlantService {
 
         this.eoloPlantResponseService.save(new EoloPlantResponse(eoloPlant.getId(), eoloPlant.getCity(), eoloPlant.getPlanning(), 0, false));
 
-        // this.sendEoloplantCreationRequest(savedEoloPlant);
+        this.sendEoloplantCreationRequest(eoloPlant);
 
         return eoloPlant;
     }
@@ -52,5 +62,10 @@ public class EoloPlantService {
         this.eoloPlantRepository.deleteById(id);
 
         return eoloPlant;
+    }
+
+    public void sendEoloplantCreationRequest(EoloPlant savedEoloPlant) {
+        this.LOG.info("Sending create event");
+        emitter.send(savedEoloPlant);
     }
 }

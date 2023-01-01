@@ -1,4 +1,5 @@
-let socket = new WebSocket("ws://" + window.location.host + "/eoloplants");
+let randomId = Math.round(Math.random() * 100000000);
+let socket = new WebSocket("ws://" + window.location.host + "/eoloplants/" + randomId);
 let userKey;
 
 socket.onmessage = function (event) {

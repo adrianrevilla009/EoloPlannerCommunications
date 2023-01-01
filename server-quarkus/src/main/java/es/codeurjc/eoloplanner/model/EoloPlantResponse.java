@@ -1,5 +1,8 @@
 package es.codeurjc.eoloplanner.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +19,7 @@ public class EoloPlantResponse {
     private int progress;
     private Boolean completed;
 
-    // private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public EoloPlantResponse(Long id, String city, String planning, int progress, Boolean completed) {
         this.id = id;
@@ -69,8 +72,8 @@ public class EoloPlantResponse {
         this.completed = completed;
     }
 
-/*    public String toJson() {
+    public String toJson() {
         return GSON.toJson(this, EoloPlantResponse.class);
-    }*/
+    }
 
 }
