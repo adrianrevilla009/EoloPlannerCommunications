@@ -36,8 +36,6 @@ public class EoloPlantCreatorService {
 
     public EoloPlant createEoloPlant(EoloPlant eoloPlantCreationRequest) throws ExecutionException, InterruptedException {
 
-        this.sendEoloplantCreationProgressNotification(eoloPlantCreationRequest, 25, false);
-
         String city = eoloPlantCreationRequest.getCity();
 
         StringBuffer planningCreation = new StringBuffer(city);
@@ -60,6 +58,8 @@ public class EoloPlantCreatorService {
             this.setProgressDependingOnFirstCompletedPromise(eoloPlantCreationRequest, firstServiceReached.get());
             firstServiceReached.set(true);
         });
+
+        this.sendEoloplantCreationProgressNotification(eoloPlantCreationRequest, 25, false);
 
         CompletableFuture.allOf(weather, landscape).get();
 

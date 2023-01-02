@@ -3,10 +3,8 @@ package es.codeurjc.eoloplanner.service;
 import es.codeurjc.eoloplanner.model.EoloPlant;
 import es.codeurjc.eoloplanner.model.EoloPlantResponse;
 import es.codeurjc.eoloplanner.repository.EoloPlantRepository;
-import es.codeurjc.eoloplanner.resource.EoloPlantResource;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

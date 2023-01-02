@@ -9,10 +9,8 @@ import io.smallrye.reactive.messaging.annotations.Blocking;
 import io.vertx.core.json.JsonObject;
 import org.eclipse.microprofile.graphql.*;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Message;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.websocket.Session;
 import java.io.IOException;
 import java.util.Collection;
